@@ -4,37 +4,92 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Türkçe ⇄ Unicode Çevirici</title>
-  <meta name="description" content="Türkçe karakterleri \uXXXX Unicode kaçışlarına ve geri çeviren ücretsiz araç.">
+  <meta name="description" content="Türkçe karakterleri \uXXXX Unicode kaçışlarına çeviren ve geri alan ücretsiz, açık kaynak araç ve Chrome eklentisi.">
+  <meta property="og:title" content="Türkçe ⇄ Unicode Çevirici">
+  <meta property="og:description" content="ğ → &#92;u011f, ş → &#92;u015f ... ve tersi. Tarayıcında çalışır, veri göndermez.">
+  <meta property="og:image" content="assets/logo.png">
+  <meta name="theme-color" content="#e30a17">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="extension/popup.css">
-  <style>
-    body { width: auto; max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; font-size: 15px; }
-    h1 { font-size: 24px; } header img { width: 48px; height: 48px; }
-    textarea, pre { font-size: 14px; } p.lead { color: var(--muted); margin: 0 0 16px; }
-    footer { margin-top: 32px; color: var(--muted); font-size: 13px; } a { color: var(--red); }
-  </style>
+  <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-  <header>
-    <img src="assets/logo.svg" alt="Logo">
-    <h1>Türkçe ⇄ Unicode Çevirici</h1>
+  <nav class="wrap nav">
+    <a class="brand" href="./"><img src="assets/logo.svg" alt="" width="28" height="28"> Türkçe ⇄ Unicode</a>
+    <div class="nav-links">
+      <a href="#kurulum">Eklenti</a>
+      <a href="https://github.com/ardasdasdas/turkish-unicode-converter" class="gh">GitHub</a>
+    </div>
+  </nav>
+
+  <header class="wrap hero">
+    <h1>Türkçe karakterleri <span class="mono accent">\u</span> kaçışlarına çevir</h1>
+    <p>Java <code>.properties</code>, JSON, JavaScript ya da Unicode kaçışı bekleyen her yer için.
+      <span class="mono">ğ → &#92;u011f</span>, <span class="mono">ş → &#92;u015f</span> ve tersi.
+      Her şey tarayıcında çalışır; metin hiçbir yere gönderilmez.</p>
   </header>
-  <p class="lead">Türkçe karakterleri (ğ, ı, ş, ...) <code>\u011f</code> gibi Unicode kaçışlarına çevirir ve geri alır. Her şey tarayıcında çalışır; metin hiçbir yere gönderilmez.</p>
 
-  <label for="inputText">Metin</label>
-  <textarea id="inputText" rows="8" placeholder="Metni buraya giriniz..."></textarea>
-  <label class="check"><input type="checkbox" id="includeSpecialChars"> Tüm özel karakterleri de dönüştür</label>
-  <label for="specialChars">Dönüştürülmeyecek karakterler</label>
-  <textarea id="specialChars" rows="1" placeholder="Örn: .,-"></textarea>
-  <div class="buttons">
-    <button id="convertToUnicodeButton" class="primary">Unicode'a çevir</button>
-    <button id="convertToOriginalButton">Orijinale çevir</button>
-  </div>
-  <div class="out-head"><label>Sonuç</label><button id="copyButton" class="link" type="button">Kopyala</button></div>
-  <pre id="outputContainer" aria-live="polite"></pre>
+  <main class="wrap">
+    <section class="tool" aria-label="Çevirici">
+      <div class="modes" role="tablist">
+        <button id="modeUnicode" class="mode active" role="tab" aria-selected="true">Türkçe → Unicode</button>
+        <button id="modeOriginal" class="mode" role="tab" aria-selected="false">Unicode → Türkçe</button>
+        <button id="swapButton" class="icon-btn" title="Sonucu girdiye taşı ve yönü değiştir" aria-label="Yer değiştir">⇄</button>
+      </div>
 
-  <footer>Chrome eklentisi olarak da kullanılabilir — <a href="https://github.com/ardasdasdas/turkish-unicode-converter">GitHub</a> · MIT</footer>
+      <div class="panes">
+        <div class="pane">
+          <div class="pane-head"><label for="inputText">Girdi</label><button id="clearButton" class="text-btn" type="button">Temizle</button></div>
+          <textarea id="inputText" spellcheck="false" placeholder="Metni buraya yaz veya yapıştır…">Çalışkan öğrenci şiir okuyor.</textarea>
+          <div class="pane-foot"><span id="inCount">0 karakter</span></div>
+        </div>
+        <div class="pane">
+          <div class="pane-head"><label for="outputText">Sonuç</label><button id="copyButton" class="text-btn" type="button">Kopyala</button></div>
+          <textarea id="outputText" readonly spellcheck="false"></textarea>
+          <div class="pane-foot"><span id="outCount">0 karakter</span></div>
+        </div>
+      </div>
+
+      <div class="options" id="specialOptions">
+        <label class="switch">
+          <input type="checkbox" id="includeSpecialChars">
+          <span class="slider" aria-hidden="true"></span>
+          Özel karakterleri de dönüştür <span class="muted mono">! " # $ % &amp; ( ) * + , - . / : ; &lt; = &gt; ? @ …</span>
+        </label>
+        <div class="keep">
+          <label for="specialChars">Hariç tut</label>
+          <input id="specialChars" type="text" class="mono" placeholder="örn. .,-" disabled>
+        </div>
+      </div>
+    </section>
+
+    <section class="cheats" aria-labelledby="cheatTitle">
+      <h2 id="cheatTitle">Hızlı tablo</h2>
+      <p class="muted">Bir karaktere tıkla, kaçışı panoya kopyalansın.</p>
+      <div id="cheatGrid" class="grid"></div>
+    </section>
+
+    <section id="kurulum" class="install">
+      <div>
+        <h2>Chrome eklentisi</h2>
+        <p>Aynı çevirici, araç çubuğunda tek tıkla. İzin istemez, sayfalara script eklemez.</p>
+        <ol>
+          <li><a href="https://github.com/ardasdasdas/turkish-unicode-converter/archive/refs/heads/main.zip">ZIP olarak indir</a> ve klasöre çıkar.</li>
+          <li><code>chrome://extensions</code> sayfasını aç, <b>Geliştirici modu</b>nu etkinleştir.</li>
+          <li><b>Paketlenmemiş öğe yükle</b> de ve <code>extension/</code> klasörünü seç.</li>
+        </ol>
+      </div>
+      <img src="assets/logo.svg" alt="Eklenti logosu" width="140" height="140" class="install-logo">
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <span>MIT Lisansı · © 2026 Arda Uslu</span>
+    <a href="https://github.com/ardasdasdas/turkish-unicode-converter">Kaynak kodu</a>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
   <script src="extension/converter.js"></script>
-  <script src="extension/popup.js"></script>
+  <script src="assets/site.js"></script>
 </body>
 </html>

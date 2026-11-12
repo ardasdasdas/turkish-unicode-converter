@@ -34,7 +34,8 @@
 ```
 extension/   Chrome eklentisi (manifest, popup, converter.js)
 index.html   GitHub Pages web sürümü (aynı converter.js'i kullanır)
-assets/      Logo
+assets/      Logo, web sitesi stili (site.css) ve betiği (site.js)
+tools/       Logo/ikon üretme betiği
 ```
 
 ## GitHub Pages

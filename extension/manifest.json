@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Türkçe ⇄ Unicode",
   "version": "4.0.0",
-  "description": "Türkçe karakterleri \uXXXX Unicode kaçışlarına, Unicode kaçışlarını tekrar Türkçe karakterlere çevirir.",
+  "description": "Türkçe karakterleri \\uXXXX Unicode kaçışlarına, Unicode kaçışlarını tekrar Türkçe karakterlere çevirir.",
   "action": {
     "default_popup": "popup.html",
     "default_title": "Türkçe ⇄ Unicode"

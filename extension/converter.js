@@ -9,7 +9,7 @@
   var SPECIAL = "'’+%!\"#$&()*,-./:;<=>?@[\]^_`{|}~";
 
   function esc(ch) {
-    return "\u" + ch.charCodeAt(0).toString(16).padStart(4, "0");
+    return "\\u" + ch.charCodeAt(0).toString(16).padStart(4, "0");
   }
 
   /**
@@ -34,7 +34,7 @@
    * above are restored; any other escape is left as-is.
    */
   function toOriginal(text) {
-    return text.replace(/\u([0-9a-fA-F]{4})/g, function (m, hex) {
+    return text.replace(/\\u([0-9a-fA-F]{4})/g, function (m, hex) {
       var ch = String.fromCharCode(parseInt(hex, 16));
       return TURKISH.indexOf(ch) !== -1 || SPECIAL.indexOf(ch) !== -1 ? ch : m;
     });
