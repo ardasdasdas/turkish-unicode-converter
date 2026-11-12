@@ -38,10 +38,6 @@ assets/      Logo, web sitesi stili (site.css) ve betiği (site.js)
 tools/       Logo/ikon üretme betiği
 ```
 
-## GitHub Pages
-
-Repo → **Settings → Pages → Deploy from a branch → `main` / `(root)`**.
-
 ## Lisans
 
 [MIT](LICENSE) © Arda Uslu
