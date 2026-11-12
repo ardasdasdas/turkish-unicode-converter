@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Türkçe ⇄ Unicode</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <img src="icons/icon48.png" alt="" width="32" height="32">
+    <h1>Türkçe ⇄ Unicode</h1>
+  </header>
+
+  <label for="inputText">Metin</label>
+  <textarea id="inputText" rows="6" placeholder="Metni buraya giriniz..."></textarea>
+
+  <label class="check">
+    <input type="checkbox" id="includeSpecialChars">
+    Tüm özel karakterleri de dönüştür
+  </label>
+
+  <label for="specialChars">Dönüştürülmeyecek karakterler</label>
+  <textarea id="specialChars" rows="1" placeholder="Örn: .,-"></textarea>
+
+  <div class="buttons">
+    <button id="convertToUnicodeButton" class="primary">Unicode'a çevir</button>
+    <button id="convertToOriginalButton">Orijinale çevir</button>
+  </div>
+
+  <div class="out-head">
+    <label>Sonuç</label>
+    <button id="copyButton" class="link" type="button">Kopyala</button>
+  </div>
+  <pre id="outputContainer" aria-live="polite"></pre>
+
+  <script src="converter.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

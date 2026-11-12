@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Türkçe ⇄ Unicode Çevirici</title>
+  <meta name="description" content="Türkçe karakterleri \uXXXX Unicode kaçışlarına ve geri çeviren ücretsiz araç.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="extension/popup.css">
+  <style>
+    body { width: auto; max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; font-size: 15px; }
+    h1 { font-size: 24px; } header img { width: 48px; height: 48px; }
+    textarea, pre { font-size: 14px; } p.lead { color: var(--muted); margin: 0 0 16px; }
+    footer { margin-top: 32px; color: var(--muted); font-size: 13px; } a { color: var(--red); }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="assets/logo.svg" alt="Logo">
+    <h1>Türkçe ⇄ Unicode Çevirici</h1>
+  </header>
+  <p class="lead">Türkçe karakterleri (ğ, ı, ş, ...) <code>\u011f</code> gibi Unicode kaçışlarına çevirir ve geri alır. Her şey tarayıcında çalışır; metin hiçbir yere gönderilmez.</p>
+
+  <label for="inputText">Metin</label>
+  <textarea id="inputText" rows="8" placeholder="Metni buraya giriniz..."></textarea>
+  <label class="check"><input type="checkbox" id="includeSpecialChars"> Tüm özel karakterleri de dönüştür</label>
+  <label for="specialChars">Dönüştürülmeyecek karakterler</label>
+  <textarea id="specialChars" rows="1" placeholder="Örn: .,-"></textarea>
+  <div class="buttons">
+    <button id="convertToUnicodeButton" class="primary">Unicode'a çevir</button>
+    <button id="convertToOriginalButton">Orijinale çevir</button>
+  </div>
+  <div class="out-head"><label>Sonuç</label><button id="copyButton" class="link" type="button">Kopyala</button></div>
+  <pre id="outputContainer" aria-live="polite"></pre>
+
+  <footer>Chrome eklentisi olarak da kullanılabilir — <a href="https://github.com/ardasdasdas/turkish-unicode-converter">GitHub</a> · MIT</footer>
+  <script src="extension/converter.js"></script>
+  <script src="extension/popup.js"></script>
+</body>
+</html>
