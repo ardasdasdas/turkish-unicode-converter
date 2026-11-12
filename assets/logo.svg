@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
   <rect width="128" height="128" rx="28" fill="#e30a17"/>
-  <text x="64" y="76" font-family="Segoe UI, Arial, sans-serif" font-weight="700" font-size="100" fill="#fff" text-anchor="middle">ğ</text>
-  <text x="64" y="116" font-family="Consolas, monospace" font-weight="700" font-size="17" fill="#fff" fill-opacity=".9" text-anchor="middle">\u011f</text>
+  <text x="64" y="58" font-family="Segoe UI, Arial, sans-serif" font-weight="700" font-size="74" fill="#fff" text-anchor="middle">ğ</text>
+  <text x="64" y="108" font-family="Consolas, monospace" font-weight="700" font-size="17" fill="#fff" fill-opacity=".9" text-anchor="middle">\u011f</text>
 </svg>
